@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Report Card Generator</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    margin:0;
+    padding:0;
+}
+
+.container{
+    width:400px;
+    margin:50px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+}
+
+input{
+    width:100%;
+    padding:8px;
+    margin:6px 0 15px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#667eea;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#5563d6;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#f4f4f4;
+    border-radius:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Report Card Generator</h1>
+
+<form method="POST">
+
+<label>Class</label>
+<input type="text" name="class" required>
+
+<label>Student Name</label>
+<input type="text" name="name" required>
+
+<label>Roll Number</label>
+<input type="number" name="roll" required>
+
+<label>Maths Marks</label>
+<input type="number" name="maths" required>
+
+<label>Science Marks</label>
+<input type="number" name="science" required>
+
+<label>English Marks</label>
+<input type="number" name="english" required>
+
+<button type="submit">Generate Report Card</button>
+
+</form>
+
+
+{% if result %}
+<div class="result">
+
+<h2>Report Card</h2>
+
+<p><b>Name:</b> {{result.name}}</p>
+<p><b>Class:</b> {{result.class}}</p>
+<p><b>Roll No:</b> {{result.roll}}</p>
+
+<p><b>Maths:</b> {{result.maths}}</p>
+<p><b>Science:</b> {{result.science}}</p>
+<p><b>English:</b> {{result.english}}</p>
+
+<hr>
+
+<p><b>Total:</b> {{result.total}}</p>
+<p><b>Percentage:</b> {{result.percentage}}%</p>
+<p><b>Grade:</b> {{result.grade}}</p>
+<p><b>Status:</b> {{result.status}}</p>
+
+
+<form action="/download" method="POST">
+
+<input type="hidden" name="name" value="{{result.name}}">
+<input type="hidden" name="roll" value="{{result.roll}}">
+<input type="hidden" name="class" value="{{result.class}}">
+<input type="hidden" name="maths" value="{{result.maths}}">
+<input type="hidden" name="science" value="{{result.science}}">
+<input type="hidden" name="english" value="{{result.english}}">
+
+<button type="submit">Download PDF</button>
+
+</form>
+
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
